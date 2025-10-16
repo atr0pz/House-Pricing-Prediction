@@ -1,0 +1,25 @@
+env/
+venv/
+
+# Ignore Python cache and build files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore SQLite database (if used)
+*.sqlite3
+
+# Ignore compiled bytecode
+*.pyc
+
+# Ignore environment or secret files
+.env
+*.log
+
+# Ignore Jupyter notebooks checkpoints (if any)
+.ipynb_checkpoints/
+
+# Ignore OS/system files
+.DS_Store
+Thumbs.db
