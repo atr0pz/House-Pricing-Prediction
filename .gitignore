@@ -7,7 +7,7 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Ignore SQLite database (if used)
+# Ignore SQLite database
 *.sqlite3
 
 # Ignore compiled bytecode
@@ -17,7 +17,7 @@ __pycache__/
 .env
 *.log
 
-# Ignore Jupyter notebooks checkpoints (if any)
+# Ignore Jupyter notebooks checkpoints
 .ipynb_checkpoints/
 
 # Ignore OS/system files
