@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tehran-Home - House Price Prediction</title>
+    <link rel="stylesheet" href="{% static 'housing/css/style.css' %}">
+    {% load static %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Tehran-Home</a>
+            <div class="nav-links">
+                <a class="nav-link" href="#">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="card">
+            <h4 class="card-title">House Price Estimation</h4>
+            <form id="predict-form" class="prediction-form">
+                <div class="form-group">
+                    <label class="form-label">Area (square meters)</label>
+                    <input type="number" step="0.1" name="area" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Rooms</label>
+                    <input type="number" name="rooms" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Year Built</label>
+                    <input type="number" name="year_built" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">District</label>
+                    <select id="district-select" name="district" class="form-control"></select>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="parking" name="parking">
+                    <label class="form-check-label" for="parking">Parking</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="elevator" name="elevator">
+                    <label class="form-check-label" for="elevator">Elevator</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="storage" name="storage">
+                    <label class="form-check-label" for="storage">Storage</label>
+                </div>
+                <button type="submit" class="btn-primary" id="submit-btn">Calculate Price</button>
+            </form>
+            <div id="result-box" class="result-box">
+                <div class="result" id="result-price"></div>
+                <div id="result-note" class="result-note"></div>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'housing/js/main.js' %}"></script>
+</body>
+</html>
