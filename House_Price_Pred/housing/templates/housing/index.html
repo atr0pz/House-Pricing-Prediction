@@ -1,66 +1,61 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tehran-Home - House Price Prediction</title>
-    <link rel="stylesheet" href="{% static 'housing/css/style.css' %}">
-    {% load static %}
+  <meta charset="utf-8" />
+  <title>House Price Predictor</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; max-width: 720px; margin: auto; }
+    label { display:block; margin-top: 0.75rem; }
+    input, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
+    button { margin-top: 1rem; padding: 0.6rem 1rem; border-radius: 6px; border: none; cursor: pointer; }
+    .result { margin-top: 1.25rem; padding: 1rem; background:#f7f7f7; border-radius:6px; }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">Tehran-Home</a>
-            <div class="nav-links">
-                <a class="nav-link" href="#">About</a>
-            </div>
-        </div>
-    </nav>
+  <h1>House Price Predictor</h1>
+<form id="prediction-form">
+  <label>Area (m²):</label>
+  <input type="number" id="area" name="area" required>
 
-    <main class="container">
-        <div class="card">
-            <h4 class="card-title">House Price Estimation</h4>
-            <form id="predict-form" class="prediction-form">
-                <div class="form-group">
-                    <label class="form-label">Area (square meters)</label>
-                    <input type="number" step="0.1" name="area" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Number of Rooms</label>
-                    <input type="number" name="rooms" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Year Built</label>
-                    <input type="number" name="year_built" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">District</label>
-                    <select id="district-select" name="district" class="form-control"></select>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="parking" name="parking">
-                    <label class="form-check-label" for="parking">Parking</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="elevator" name="elevator">
-                    <label class="form-check-label" for="elevator">Elevator</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="storage" name="storage">
-                    <label class="form-check-label" for="storage">Storage</label>
-                </div>
-                <button type="submit" class="btn-primary" id="submit-btn">Calculate Price</button>
-            </form>
-            <div id="result-box" class="result-box">
-                <div class="result" id="result-price"></div>
-                <div id="result-note" class="result-note"></div>
-            </div>
-        </div>
-    </div>
-    </main>
+  <label>Room:</label>
+  <select id="room" name="room">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4+</option>
+  </select>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'housing/js/main.js' %}"></script>
+  <label>Parking:</label>
+  <select id="parking" name="parking">
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+  </select>
+
+  <label>Warehouse:</label>
+  <select id="warehouse" name="warehouse">
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+  </select>
+
+  <label>Elevator:</label>
+  <select id="elevator" name="elevator">
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+  </select>
+
+  <label>Address:</label>
+  <select id="address" name="address"></select> <!-- THIS IS IMPORTANT -->
+  
+  <button type="submit">Predict Price</button>
+</form>
+
+<div id="result"></div>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script src="{% static 'housing/scripts.js' %}"></script>
 </body>
 </html>

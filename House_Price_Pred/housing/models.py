@@ -1,25 +1,17 @@
 from django.db import models
 
-
-class District(models.Model):
-    name = models.CharField(max_length=150, unique=True)
-    avg_price = models.FloatField(null=True, blank=True) # optional: precomputed mean price
-
-
-def __str__(self):
-    return self.name
-
-
-class House(models.Model):
+class PredictionRequest(models.Model):
     area = models.FloatField()
-    rooms = models.IntegerField()
-    year_built = models.IntegerField()
-    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True)
-    parking = models.BooleanField(default=False)
-    elevator = models.BooleanField(default=False)
-    storage = models.BooleanField(default=False)
+    room = models.IntegerField()
+    parking = models.IntegerField()
+    warehouse = models.IntegerField()
+    elevator = models.IntegerField()
+    address = models.CharField(max_length=200)
+
+    predicted_price_log = models.FloatField(null=True, blank=True) 
+    predicted_price_usd = models.FloatField(null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-def __str__(self):
-    return f"{self.area} m2 - {self.district}"
+    def __str__(self):
+        return f"{self.address} - {self.predicted_price_usd:.2f} USD"

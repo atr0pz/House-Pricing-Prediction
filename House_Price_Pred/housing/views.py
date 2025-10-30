@@ -1,107 +1,69 @@
-import os
-from django.shortcuts import render
-from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
-from .serializers import (DistrictSerializer, PredictionInputSerializer,
-PredictionOutputSerializer, HouseSerializer)
-from .models import District, House
-import joblib
-import numpy as np
-
-
-# helper: load model and encoder once
-MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'house_price_model.joblib')
-ENCODER_PATH = os.path.join(settings.BASE_DIR, 'models', 'district_encoder.joblib')
-_model = None
-_encoder = None
-
-
-def load_model_and_encoder():
-    global _model, _encoder
-    if _model is None:
-        _model = joblib.load(MODEL_PATH)
-    if _encoder is None:
-        _encoder = joblib.load(ENCODER_PATH)
-    return _model, _encoder
-
-
-
-# index view -> renders template
-def index(request):
-    return render(request, 'housing/index.html')
-
-
-
-
-class DistrictListAPIView(generics.ListAPIView):
-    queryset = District.objects.all().order_by('name')
-    serializer_class = DistrictSerializer
-
-
-
+from .serializers import PredictionRequestSerializer
+from .models import PredictionRequest
+from . import utils
+from rest_framework.decorators import api_view
+import pandas as pd
+import os
 
 class PredictAPIView(APIView):
+    """
+    POST JSON:
+    {
+      "area": 120.5,
+      "room": 3,
+      "parking": 1,
+      "warehouse": 0,
+      "elevator": 1,
+      "address": "DistrictName"
+    }
+    """
     def post(self, request):
-        serializer = PredictionInputSerializer(data=request.data)
+        data = request.data
+        # Basic validation (serializer will help too)
+        serializer = PredictionRequestSerializer(data=data)
+        # allow writing input fields only
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-        data = serializer.validated_data
-
-
-        # preprocess
-        # prepare district encoding: if district exists in DB use it, else fallback
-        model, encoder = load_model_and_encoder()
-
-
-        district_name = data['district']
-        # encoder is assumed to be a LabelEncoder or similar that maps names -> ints
+        validated = serializer.validated_data
         try:
-            district_encoded = encoder.transform([district_name])[0]
-        except Exception:
-        # fallback: if new district unseen, try to use mean or 0
-            district_encoded = -1
-
-
-        # feature ordering MUST match training
-        features = [
-            data['area'],
-            data['rooms'],
-            data['year_built'],
-            district_encoded,
-            int(data['parking']),
-            int(data['elevator']),
-            int(data['storage']),
-        ]
-
-
-        X = np.array(features).reshape(1, -1)
-        pred = model.predict(X)
-        predicted_price = float(pred[0])
-
-
-        try:
-            district_obj, _ = District.objects.get_or_create(name=district_name)
-            House.objects.create(
-                area=data['area'],
-                rooms=data['rooms'],
-                year_built=data['year_built'],
-                district=district_obj,
-                parking=data['parking'],
-                elevator=data['elevator'],
-                storage=data['storage'],
+            pred_log, pred_usd = utils.predict_price(
+                area=validated['area'],
+                room=validated['room'],
+                parking=validated['parking'],
+                warehouse=validated['warehouse'],
+                elevator=validated['elevator'],
+                address=validated['address']
             )
-        except Exception:
-            # don't let DB errors break the API
-            pass
+        except FileNotFoundError as e:
+            return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            return Response({'detail': f'Prediction failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+        # Save record
+        instance = PredictionRequest.objects.create(
+            area=validated['area'],
+            room=validated['room'],
+            parking=validated['parking'],
+            warehouse=validated['warehouse'],
+            elevator=validated['elevator'],
+            address=validated['address'],
+            predicted_price_log=pred_log,
+            predicted_price_usd=pred_usd
+        )
+        out_ser = PredictionRequestSerializer(instance)
+        return Response(out_ser.data, status=status.HTTP_201_CREATED)
 
-        out = {
-            'predicted_price': predicted_price,
-            'message': 'Prediction successful'
-        }
-        out_ser = PredictionOutputSerializer(out)
-        return Response(out_ser.data)
+class PredictionListAPIView(generics.ListAPIView):
+    queryset = PredictionRequest.objects.order_by('-created_at')[:200]
+    serializer_class = PredictionRequestSerializer
+
+@api_view(['GET'])
+def get_addresses(request):
+    csv_path = os.path.join(os.path.dirname(__file__), 'housePrice.csv')
+    df = pd.read_csv(csv_path)
+    addresses = sorted(df['Address'].dropna().unique().tolist())
+    return Response(addresses)  
