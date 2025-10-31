@@ -1,61 +1,90 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>House Price Predictor</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; max-width: 720px; margin: auto; }
-    label { display:block; margin-top: 0.75rem; }
-    input, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; }
-    button { margin-top: 1rem; padding: 0.6rem 1rem; border-radius: 6px; border: none; cursor: pointer; }
-    .result { margin-top: 1.25rem; padding: 1rem; background:#f7f7f7; border-radius:6px; }
-  </style>
-  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tehran House Price Predictor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css"
+      rel="stylesheet"
+    />
+    <link href="{% static 'housing/style.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Tehran House Price Predictor</h1>
 
-</head>
-<body>
-  <h1>House Price Predictor</h1>
-<form id="prediction-form">
-  <label>Area (m²):</label>
-  <input type="number" id="area" name="area" required>
+    <div class="container">
+      <!-- Left long form -->
+      <form id="prediction-form">
+        <label>Area (m²):</label>
+        <input type="number" id="area" name="area" required />
 
-  <label>Room:</label>
-  <select id="room" name="room">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4+</option>
-  </select>
+        <label>Room:</label>
+        <select id="room" name="room">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4+</option>
+        </select>
 
-  <label>Parking:</label>
-  <select id="parking" name="parking">
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-  </select>
+        <label>Parking:</label>
+        <select id="parking" name="parking">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
 
-  <label>Warehouse:</label>
-  <select id="warehouse" name="warehouse">
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-  </select>
+        <label>Warehouse:</label>
+        <select id="warehouse" name="warehouse">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
 
-  <label>Elevator:</label>
-  <select id="elevator" name="elevator">
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-  </select>
+        <label>Elevator:</label>
+        <select id="elevator" name="elevator">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
 
-  <label>Address:</label>
-  <select id="address" name="address"></select> <!-- THIS IS IMPORTANT -->
-  
-  <button type="submit">Predict Price</button>
-</form>
+        <label>Address:</label>
+        <select id="address" name="address">
+          <option value="" selected disabled>
+            Select or search address...
+          </option>
+        </select>
 
-<div id="result"></div>
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-<script src="{% static 'housing/scripts.js' %}"></script>
-</body>
+        <button type="submit">Predict Price</button>
+      </form>
+
+      <!-- Right stacked cards -->
+      <div class="right-cards">
+        <section id="prediction-results">
+          <h2>Prediction Result</h2>
+          <div id="result" class="result-card">Resaults will be shown here!
+          </div>
+        </section>
+
+        <section id="info-section">
+          <h2>Additional notes</h2>
+          <div id="info-card" class="result-card">
+            <p>
+              Fill in the inputs and press "Predict Price" to obtain the estimated price. The first attempt may take some time!
+
+              After some trial and error, the RandomForest model gave the most promising results and therefore is used here.
+
+              Due to limited data, results may not be accurate.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="{% static 'housing/scripts.js' %}"></script>
+  </body>
 </html>

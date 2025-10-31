@@ -1,0 +1,250 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f2eafc; /* pastel purple background */
+  color: #3b0a57;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Page title */
+h1 {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 2.5rem; /* slightly bigger */
+  font-weight: 700; /* bold */
+  margin-bottom: 2rem;
+  color: #a26eff;
+  letter-spacing: 1px; /* adds subtle spacing */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* subtle depth */
+}
+
+/* Container holding form + prediction side by side */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap; /* stack on mobile */
+  align-items: flex-start; /* natural card height */
+}
+
+/* Form and prediction panel */
+.container > form,
+.container > #prediction-results {
+  flex: 0 0 auto; /* don't stretch */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(59, 10, 87, 0.1);
+  background-color: #fff5ff;
+}
+
+/* Form width */
+.container > form {
+  width: 380px; /* fixed width for form */
+}
+
+/* Prediction panel width (smaller, content-based) */
+.container > #prediction-results {
+  width: 260px; /* minimal width, fits content */
+}
+
+/* Form labels and inputs */
+label {
+  display: block;
+  margin-top: 0.8rem;
+  font-weight: 500;
+  color: #6b2fa3;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #d9b3ff;
+  font-size: 0.95rem;
+  color: #3b0a57;
+  background-color: #f9f4ff;
+  transition: border 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #a26eff;
+}
+
+/* Buttons */
+button {
+  background-color: #a26eff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  margin-top: 1.25rem;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #8c4dd3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 10, 87, 0.2);
+}
+
+#area {
+  width: 355px;
+}
+
+.tomselected .ts-control,
+.ts-control {
+  background-color: #f9f4ff;
+  border: 1px solid #d9b3ff;
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.95rem;
+  color: #3b0a57;
+  min-height: 38px; /* same height as your inputs */
+  box-sizing: border-box;
+}
+
+/* Focus state */
+.ts-control.focus {
+  border-color: #a26eff;
+  box-shadow: 0 0 0 1px #a26eff;
+}
+
+/* The input inside Tom Select */
+.ts-control input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #3b0a57;
+  padding: 0;
+}
+
+/* Dropdown menu */
+.ts-dropdown {
+  background-color: #fff5ff;
+  border: 1px solid #d9b3ff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(59, 10, 87, 0.1);
+  color: #3b0a57;
+}
+
+/* Highlighted option */
+.ts-dropdown .active {
+  background-color: #e3d4ff;
+  color: #3b0a57;
+}
+
+/* Prediction results */
+#prediction-results h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #a26eff;
+  margin-bottom: 0.8rem;
+}
+
+.result {
+  background-color: #f3e5ff;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  color: #3b0a57;
+  text-align: center; /* shrink to content */
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  white-space: pre-line; /* small minimum height */
+}
+
+.result-card {
+    background-color: #f3e5ff;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: #3b0a57;
+    text-align: center;
+    display: inline-flex;        /* shrink to content */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.75rem;      /* spacing between cards */
+    min-height: 40px;             /* small minimum height */
+    box-shadow: 0 2px 6px rgba(59,10,87,0.08);
+}
+
+/* Right stacked cards container */
+.right-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* space between prediction and info card */
+}
+
+/* All right cards (prediction + info) */
+.right-cards > section {
+  width: 260px; /* keeps them same width as before */
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(59, 10, 87, 0.1);
+  background-color: #fff5ff; /* same pastel purple card bg */
+}
+
+/* Maintain heading style inside right cards */
+.right-cards > section h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #a26eff;
+  margin-bottom: 0.8rem;
+}
+
+/* Inner card content inside right sections */
+.right-cards > section .result-card {
+  background-color: #f3e5ff;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  color: #3b0a57;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  min-height: 40px;
+  min-width: 225px;
+  box-shadow: 0 2px 6px rgba(59,10,87,0.08);
+  width: auto;
+  white-space: pre-line;
+}
+
+/* Optional: smaller font for additional info */
+#info-card p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+/* Loading & error states */
+.loading {
+  color: #a26eff;
+  font-style: italic;
+}
+
+.error {
+  background: #ffd9f2;
+  border: 1px solid #ffb3e6;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  color: #a2004b;
+}
+
+/* Responsive: stack panels on small screens */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container > form,
+  .container > #prediction-results {
+    width: 100%;
+    max-width: 380px;
+    margin: 0.5rem 0;
+  }
+}
