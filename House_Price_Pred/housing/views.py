@@ -9,22 +9,9 @@ import pandas as pd
 import os
 
 class PredictAPIView(APIView):
-    """
-    POST JSON:
-    {
-      "area": 120.5,
-      "room": 3,
-      "parking": 1,
-      "warehouse": 0,
-      "elevator": 1,
-      "address": "DistrictName"
-    }
-    """
     def post(self, request):
         data = request.data
-        # Basic validation (serializer will help too)
         serializer = PredictionRequestSerializer(data=data)
-        # allow writing input fields only
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -43,7 +30,6 @@ class PredictAPIView(APIView):
         except Exception as e:
             return Response({'detail': f'Prediction failed: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # Save record
         instance = PredictionRequest.objects.create(
             area=validated['area'],
             room=validated['room'],

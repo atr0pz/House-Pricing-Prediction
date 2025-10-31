@@ -30,6 +30,6 @@ def predict_price(area, room, parking, warehouse, elevator, address):
         'Address': str(address)
     }])
     # model is a pipeline that includes the encoder; it expects same columns used in training
-    pred_log = model.predict(X)[0]  # this is log1p(price)
-    pred_usd = float(np.expm1(pred_log))  # inverse of log1p
+    pred_log = model.predict(X)[0]
+    pred_usd = float(np.expm1(pred_log))
     return float(pred_log), pred_usd

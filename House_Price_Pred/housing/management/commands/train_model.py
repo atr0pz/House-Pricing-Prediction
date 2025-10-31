@@ -34,7 +34,6 @@ class Command(BaseCommand):
         bin_cols = ['Room', 'Parking', 'Warehouse', 'Elevator']
         df[bin_cols] = df[bin_cols].fillna(df[bin_cols].mode().iloc[0])
 
-        # drop Price if present, use Price(USD)
         if 'Price' in df.columns:
             df = df.drop(columns=['Price'])
         df['Price(USD)'] = pd.to_numeric(df['Price(USD)'], errors='coerce')
@@ -59,7 +58,7 @@ class Command(BaseCommand):
         ])
 
         param_grid = {
-            'model__n_estimators': [100, 200],  # shortened by default for speed; expand if you want
+            'model__n_estimators': [100, 200],
             'model__max_depth': [None, 10, 20],
             'model__min_samples_split': [2, 5],
             'model__min_samples_leaf': [1, 2]
@@ -79,11 +78,8 @@ class Command(BaseCommand):
         grid_search.fit(X, y)
         best = grid_search.best_estimator_
         self.stdout.write(self.style.SUCCESS(f'Best params: {grid_search.best_params_}'))
-
-        # final fit on full training set (optional)
         best.fit(X, y)
 
-        # save
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
         joblib.dump(best, out_path)
         self.stdout.write(self.style.SUCCESS(f'Model saved to {out_path}'))

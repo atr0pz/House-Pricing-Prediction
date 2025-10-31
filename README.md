@@ -20,5 +20,6 @@ I suspect that the answer is the data, because it has problems that I will list 
 - 192 distinct addresses (~18 houses per address on average, which makes it quite hard for the model to learn, given that the address is the most important feature when it comes to houses in Tehran)  
 - Imbalance in warehouse and elevator features (they are mostly 0)
 A funny thing that also happened was that not having elevator makes the house cost more, because the houses that don't have elevator are most likely a detached house which cost more.
+
 Anyway, I used **RandomForest** as the final model because it performed slightly better and also because I like it better.  
 Also, the Django code was written with the help of AI.”.

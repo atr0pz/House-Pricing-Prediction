@@ -1,53 +1,53 @@
 body {
   font-family: 'Inter', sans-serif;
-  background: #f2eafc; /* pastel purple background */
+  background: #f2eafc; 
   color: #3b0a57;
   min-height: 100vh;
   padding: 2rem;
 }
 
-/* Page title */
+
 h1 {
   font-family: 'Poppins', sans-serif;
   text-align: center;
-  font-size: 2.5rem; /* slightly bigger */
-  font-weight: 700; /* bold */
+  font-size: 2.5rem; 
+  font-weight: 700; 
   margin-bottom: 2rem;
   color: #a26eff;
-  letter-spacing: 1px; /* adds subtle spacing */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* subtle depth */
+  letter-spacing: 1px; 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
 }
 
-/* Container holding form + prediction side by side */
+
 .container {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap; /* stack on mobile */
-  align-items: flex-start; /* natural card height */
+  flex-wrap: wrap;
+  align-items: flex-start; 
 }
 
-/* Form and prediction panel */
+
 .container > form,
 .container > #prediction-results {
-  flex: 0 0 auto; /* don't stretch */
+  flex: 0 0 auto; 
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(59, 10, 87, 0.1);
   background-color: #fff5ff;
 }
 
-/* Form width */
+
 .container > form {
-  width: 380px; /* fixed width for form */
+  width: 380px; 
 }
 
-/* Prediction panel width (smaller, content-based) */
+
 .container > #prediction-results {
-  width: 260px; /* minimal width, fits content */
+  width: 260px; 
 }
 
-/* Form labels and inputs */
+
 label {
   display: block;
   margin-top: 0.8rem;
@@ -74,7 +74,7 @@ select:focus {
   border-color: #a26eff;
 }
 
-/* Buttons */
+
 button {
   background-color: #a26eff;
   color: #fff;
@@ -106,17 +106,17 @@ button:hover {
   padding: 0.5rem 0.7rem;
   font-size: 0.95rem;
   color: #3b0a57;
-  min-height: 38px; /* same height as your inputs */
+  min-height: 38px; 
   box-sizing: border-box;
 }
 
-/* Focus state */
+
 .ts-control.focus {
   border-color: #a26eff;
   box-shadow: 0 0 0 1px #a26eff;
 }
 
-/* The input inside Tom Select */
+
 .ts-control input {
   background-color: transparent;
   border: none;
@@ -126,7 +126,7 @@ button:hover {
   padding: 0;
 }
 
-/* Dropdown menu */
+
 .ts-dropdown {
   background-color: #fff5ff;
   border: 1px solid #d9b3ff;
@@ -135,13 +135,13 @@ button:hover {
   color: #3b0a57;
 }
 
-/* Highlighted option */
+
 .ts-dropdown .active {
   background-color: #e3d4ff;
   color: #3b0a57;
 }
 
-/* Prediction results */
+
 #prediction-results h2 {
   font-size: 1.2rem;
   font-weight: 600;
@@ -154,11 +154,11 @@ button:hover {
   border-radius: 8px;
   padding: 0.8rem 1rem;
   color: #3b0a57;
-  text-align: center; /* shrink to content */
+  text-align: center;
   justify-content: center;
   align-items: center;
   min-height: 40px;
-  white-space: pre-line; /* small minimum height */
+  white-space: pre-line; 
 }
 
 .result-card {
@@ -167,31 +167,30 @@ button:hover {
     padding: 0.8rem 1rem;
     color: #3b0a57;
     text-align: center;
-    display: inline-flex;        /* shrink to content */
+    display: inline-flex;        
     justify-content: center;
     align-items: center;
-    margin-bottom: 0.75rem;      /* spacing between cards */
-    min-height: 40px;             /* small minimum height */
+    margin-bottom: 0.75rem;      
+    min-height: 40px;            
     box-shadow: 0 2px 6px rgba(59,10,87,0.08);
 }
 
-/* Right stacked cards container */
+
 .right-cards {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* space between prediction and info card */
+  gap: 1rem;
 }
 
-/* All right cards (prediction + info) */
+
 .right-cards > section {
-  width: 260px; /* keeps them same width as before */
+  width: 260px; 
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(59, 10, 87, 0.1);
-  background-color: #fff5ff; /* same pastel purple card bg */
+  background-color: #fff5ff; 
 }
 
-/* Maintain heading style inside right cards */
 .right-cards > section h2 {
   font-size: 1.2rem;
   font-weight: 600;
@@ -199,7 +198,6 @@ button:hover {
   margin-bottom: 0.8rem;
 }
 
-/* Inner card content inside right sections */
 .right-cards > section .result-card {
   background-color: #f3e5ff;
   border-radius: 8px;
@@ -215,12 +213,11 @@ button:hover {
   white-space: pre-line;
 }
 
-/* Optional: smaller font for additional info */
 #info-card p {
     font-size: 0.9rem;
     margin: 0;
 }
-/* Loading & error states */
+
 .loading {
   color: #a26eff;
   font-style: italic;
@@ -234,7 +231,6 @@ button:hover {
   color: #a2004b;
 }
 
-/* Responsive: stack panels on small screens */
 @media (max-width: 900px) {
   .container {
     flex-direction: column;

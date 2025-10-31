@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('Error loading addresses:', error);
     });
 
-  // Handle form submission
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
