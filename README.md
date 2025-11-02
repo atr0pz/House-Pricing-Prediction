@@ -22,4 +22,3 @@ I suspect that the answer is the data, because it has problems that I will list 
 A funny thing that also happened was that not having elevator makes the house cost more, because the houses that don't have elevator are most likely a detached house which cost more.
 
 Anyway, I used **RandomForest** as the final model because it performed slightly better and also because I like it better.  
-Also, the Django code was written with the help of AI.”.
