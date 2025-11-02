@@ -218,7 +218,31 @@ button:hover {
     margin: 0;
 }
 
-.loading {
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.spinner {
+  border: 3px solid #f3e5ff;
+  border-top: 3px solid #a26eff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.9rem;
   color: #a26eff;
   font-style: italic;
 }

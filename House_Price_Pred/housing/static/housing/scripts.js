@@ -37,6 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
       address: document.getElementById('address').value,
     };
 
+    // ✅ Show loading spinner
+    resultDiv.innerHTML = `
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Predicting price...</p>
+      </div>
+    `;
+
     try {
       const response = await fetch('/api/predict/', {
         method: 'POST',
